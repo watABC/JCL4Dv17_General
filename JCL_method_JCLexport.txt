@@ -1,6 +1,7 @@
 ﻿  //JCL_method_JCLexport
   // フォルダ選択ダイアログを表示して、JCLメソッドだけを書き出す。
   //20170627 yabe wat
+  //20180521 wat JCLvXX_Generalフォルダに出力する
   //20190107 wat ike 改行はＬＦ、BLOB経由しない
 
 C_TEXT($dir)  //メソッドを書き出すディレクトリ
