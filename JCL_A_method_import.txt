@@ -2,6 +2,7 @@
   // フォルダ選択ダイアログを表示して、JCLメソッドを取り込む。
   //拡張子があれば除く
   //20170627 yabe wat
+  //20170808 yabe wat 自分のファイル名のファイルだったらパスする
   //20180917 wat なぜかmacOSのフォルダーに見えないファイル名が空白文字のファイルがあるようだ。
   //20180917 wat rename 名前にAを付けて、メソッドリストで上に来るようにした
   //20190107 ike wat　リストで上に来るようにしたければ_A_を付ける
@@ -54,7 +55,7 @@ If (OK=1)
 		
 		$methodName:=$aryMethodNames{$i}
 		If ($methodName#"")  //20180917 ファイル名に空白があった、そこでエラーになった。
-			$pos:=Position("JCL_method_JCLimport";$methodName)  //20170808 yabe wat
+			$pos:=Position("JCL_A_method_import";$methodName)
 			
 			If ($pos=0)
 				
@@ -71,7 +72,7 @@ If (OK=1)
 		$filePath:=$dir+$aryFileList{$i}
 		$methodName:=$aryMethodNames{$i}
 		If ($methodName#"")  //20180917 ファイル名に空白があった、そこでエラーになった。
-			$pos:=Position("JCL_method_JCLimport";$methodName)  //20170808 yabe wat
+			$pos:=Position("JCL_A_method_import";$methodName)
 			If ($pos=0)
 				
 				  //v14
