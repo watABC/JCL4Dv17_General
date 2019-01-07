@@ -1,0 +1,39 @@
+﻿  //JCL_file_autoLoginPref_write
+  //20150712 yabe wat
+  //自動ログイン設定をOSに保存する
+
+C_TEXT($1;$inUserName)
+$inUserName:=$1
+C_TEXT($file_contents)
+C_TEXT($folderPath;$filepath)
+C_TIME($FileRef)  //ファイル参照
+
+$file_contents:="st_name"+Char(Tab)+$inUserName+Char(Carriage return)
+$file_contents:=$file_contents+Jiro_str_MachineInfo 
+
+  //OSにファイルを作る
+$folderPath:=System folder(User preferences_user)
+$folderPath:=$folderPath+"bps"+Jiro_file_GetDirSeparator 
+If (Test path name($folderPath)#Is a folder)
+	
+	CREATE FOLDER($folderPath)
+	
+End if 
+
+$filepath:=$folderPath+"bps_auto_login"
+TEXT TO DOCUMENT($filepath;$file_contents)
+
+
+  //$folderPath:=System folder(User preferences_user)
+  //$filepath:=$folderPath+"bps_auto_login"
+  //$open_ok:=Jiro_file_OpenForWrite ($filePath;->$FileRef)
+  //If ($open_ok=1)
+
+  //  //ファイルに書き出す
+  //Jiro_file_WriteSJIS ($FileRef;$file_contents)
+  //Jiro_file_WriteCRLF ($FileRef)
+
+  //  //ファイルを閉じる
+  //CLOSE DOCUMENT($FileRef)
+
+  //End if 
