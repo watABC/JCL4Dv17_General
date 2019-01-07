@@ -2,10 +2,9 @@
   // フォルダ選択ダイアログを表示して、JCLメソッドを取り込む。
   //拡張子があれば除く
   //20170627 yabe wat
-  //20170808 yabe wat 自分のファイル名のファイルだったらパスする
   //20180917 wat なぜかmacOSのフォルダーに見えないファイル名が空白文字のファイルがあるようだ。
   //20180917 wat rename 名前にAを付けて、メソッドリストで上に来るようにした
-  //20190107 ike wat　リストで上に来るようにしたければ_A_を付ける
+  //20190107 ike wat　リストで上に来るようにしたければ_A_を付ける、改行はＬＦ、BLOB経由しない
 
 C_TEXT($dir)  //メソッドを読み込むディレクトリ
 C_LONGINT($i;$numOfFile)
@@ -55,7 +54,7 @@ If (OK=1)
 		
 		$methodName:=$aryMethodNames{$i}
 		If ($methodName#"")  //20180917 ファイル名に空白があった、そこでエラーになった。
-			$pos:=Position("JCL_A_method_import";$methodName)
+			$pos:=Position("JCL_A_method_import";$methodName)  //20170808 yabe wat
 			
 			If ($pos=0)
 				
@@ -72,12 +71,10 @@ If (OK=1)
 		$filePath:=$dir+$aryFileList{$i}
 		$methodName:=$aryMethodNames{$i}
 		If ($methodName#"")  //20180917 ファイル名に空白があった、そこでエラーになった。
-			$pos:=Position("JCL_A_method_import";$methodName)
+			$pos:=Position("JCL_A_method_import";$methodName)  //20170808 yabe wat
 			If ($pos=0)
-				
-				  //v14
-				DOCUMENT TO BLOB($filePath;$blob)
-				$method:=BLOB to text($blob;UTF8 text without length)
+				  //v17
+				$method:=Document to text($filePath;"UTF-8";Document with LF)
 				
 				METHOD SET CODE($methodName;$method)
 				
