@@ -1,0 +1,27 @@
+﻿  //JCL_utl_MachineInfo
+  //20180105 yabe
+  //マシンが情報の変化をウォッチするためのメソッド
+  //マシン情報に変化があったときは、ライセンスサーバに問い合わせる、など
+  //20190104 wat プラットフォームはIs macOS、Is Windowsで取得
+
+C_TEXT($0;$machineInfo;$cmd;$input;$output;$error)
+
+If (Is macOS)
+	
+	$cmd:="system_profiler SPHardwareDataType"
+	LAUNCH EXTERNAL PROCESS($cmd;$input;$output;$error)
+	$machineInfo:=$output
+	
+	$cmd:="sw_vers"
+	LAUNCH EXTERNAL PROCESS($cmd;$input;$output;$error)
+	$machineInfo:=$machineInfo+$output
+	
+Else 
+	
+	$cmd:="systeminfo /fo table /nh"
+	SET ENVIRONMENT VARIABLE("_4D_OPTION_HIDE_CONSOLE";"true")
+	LAUNCH EXTERNAL PROCESS($cmd;$input;$output;$error)
+	$machineInfo:=$output
+End if 
+
+$0:=$machineInfo

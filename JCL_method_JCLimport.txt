@@ -26,8 +26,8 @@ $retText:="end"
 
 $dir:=Select folder("")
 If (OK=1)
-	
-	DOCUMENT LIST($dir;$aryFileList)
+	  //20181226 wat 不可視ファイルを無視する
+	DOCUMENT LIST($dir;$aryFileList;Ignore invisible)
 	
 	$numOfFile:=Size of array($aryFileList)
 	ARRAY TEXT($aryMethodNames;$numOfFile)

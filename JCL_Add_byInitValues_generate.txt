@@ -85,7 +85,7 @@ For ($i;1;Get last table number)
 			$method:=$method+"C_LONGINT($0;$"+$prefix+"_id)"
 			$method:=$method+Char(Carriage return)
 			$method:=$method+"//新規レコード作成"+Char(Carriage return)
-			$method:=$method+"$"+$prefix+"_id:=JCL_SN_SerialNumber (\""+$prefix+"_ID\";\""+$tableName+"\")"+Char(Carriage return)
+			$method:=$method+"$"+$prefix+"_id:=JCL_Sequence number (\""+$prefix+"_ID\";\""+$tableName+"\")"+Char(Carriage return)
 			$method:=$method+"CREATE RECORD(["+$tableName+"])"+Char(Carriage return)
 			$method:=$method+Char(Carriage return)
 			$method:=$method+$fieldMethod

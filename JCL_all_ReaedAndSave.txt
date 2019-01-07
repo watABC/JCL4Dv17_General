@@ -119,7 +119,7 @@ For ($i;1;Get last table number)
 					
 				End if 
 				
-				Jiro_file_Close ($FileRef)
+				JCL_file_Close ($FileRef)
 				
 			End if 
 			

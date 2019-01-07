@@ -2,6 +2,7 @@
   //20170311 wat
   //JCL_lst_GetValue
   // 汎用のリストボックス　書き出し
+  //20181226 wat v17オブジェクト記法
 
 C_POINTER($1;$lstbxPtr)
 $lstbxPtr:=$1
@@ -32,7 +33,8 @@ If ($numOfRows>$lstbx_row_nr)
 		
 		$str:=String($aryColVars{$col}->{$lstbx_row_nr})  // データ型によってはエラーになる可能性がある
 		
-		OB SET($objPtr->;String($col);$str)
+		  //OB SET($objPtr->;String($col);$str)
+		$objPtr->$col:=$str
 		
 	End for 
 	

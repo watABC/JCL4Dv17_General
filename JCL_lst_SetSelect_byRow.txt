@@ -11,7 +11,9 @@ $row_number:=$2  //行番号
   //行番号がゼロの場合は何も選択しない
 If ($row_number#0)
 	LISTBOX SELECT ROW($inListBoxPtr->;$row_number;lk replace selection)
+	
 Else 
 	  //ゼロの場合はデセレクト
 	LISTBOX SELECT ROW($inListBoxPtr->;0;lk remove from selection)
+	
 End if 

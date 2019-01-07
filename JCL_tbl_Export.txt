@@ -28,8 +28,6 @@ If ((OK=1) & ($doc#0))
 	
 	  //ファイルを閉じる
 	CLOSE DOCUMENT($doc)
-	  //クリエータをEXCELにする
-	_O_SET DOCUMENT CREATOR(Document;"XCEL")
 	
 	  //終了メッセージ
 	ALERT("出力が終わりました。")

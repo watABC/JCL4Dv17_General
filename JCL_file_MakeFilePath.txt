@@ -9,7 +9,7 @@ $fileName:=$2  //ファイル名
 C_TEXT($0;$outPath)
 
 C_TEXT($separator)
-$separator:=JCL_file_GetDirSeparator 
+$separator:=JCL_file_DirSeparator 
 
 C_LONGINT($length)
 C_TEXT($char)

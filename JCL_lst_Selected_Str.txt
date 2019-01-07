@@ -1,4 +1,4 @@
-﻿  //JCL_lst_GetSelected_Str
+﻿  //JCL_lst_Selected_Str
   //20100628 wat new
   //汎用メソッド。 リストボックスの行選択を取得して、
   //連結されている文字列の配列から、最初に選択されている行のバリューを返す
@@ -17,5 +17,6 @@ $foundRow:=JCL_lst_Selected_firstRow ($inListBoxPtr)
   //配列の値を返す
 If ($foundRow#0)
 	$strValue:=$inDataAryPtr->{$foundRow}
+	
 End if 
 $0:=$strValue

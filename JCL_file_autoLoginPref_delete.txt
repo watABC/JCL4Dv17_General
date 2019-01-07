@@ -8,7 +8,7 @@ C_TEXT($folderPath;$filepath)
 
   //OSのファイルパス Mac: /ユーザ/ライブラリ/Application Support/bps/bps_auto_login
 $folderPath:=System folder(User preferences_user)
-$folderPath:=$folderPath+"bps"+Jiro_file_GetDirSeparator 
+$folderPath:=$folderPath+"bps"+JCL_file_DirSeparator 
 If (Test path name($folderPath)=Is a folder)
 	
 	$filepath:=$folderPath+"bps_auto_login"

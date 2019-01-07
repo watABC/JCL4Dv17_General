@@ -22,11 +22,11 @@ If ($numofParams>=4)
 	$inDocName:=$4  //デフォルトファイル名
 	
 	  //$doc:=Select document(System folder(Documents folder)+"Report.pdf";"pdf";"Report name:";File name entry)				\
-		
+				
 	$defaultFileName:=$inDocName+$inExt
 	$docName:=Select document(System folder(Desktop)+"aaa";"txt";"Output file name:";File name entry;$fullPath)
 	  //$doc:=Select document(System folder(Desktop)+$defaultFileName;"txt";"Output file name:";File name entry)				\
-		
+				
 	$doc:=Create document($fullPath;$inExt)
 	
 Else 

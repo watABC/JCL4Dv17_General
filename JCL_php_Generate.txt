@@ -1,8 +1,7 @@
-﻿  //JCL_method_Generate
-  //20130318 yabe
+﻿  //JCL_php_Generate
+  //20181228 wat hisa
+  //ｐｈｐ用メソッドジェネレータ
   //外部テキストファイルのフィールド定義を読み込んでメソッド作成
-  //メソッドが既にある場合削除しない。
-  //20150826 yabe フォーム作成フラグ追加
 
 C_LONGINT($dlg_ok)
 C_BLOB($fileBlob)  //読み込んだファイルの内容
@@ -12,7 +11,7 @@ ARRAY LONGINT($aryStartLineNr;0)  //テーブル定義始まりの行番号の�
 ARRAY TEXT($aryPrefix;0)  //フィールド名のプリフィックスの配列
 ARRAY TEXT($aryFormsFlag;0)  //20150826 フォームを作るかどうかのフラグの配列「フォーム作る」なら作成
 C_LONGINT($i;$numOfTables)
-C_TEXT($dir)
+C_TEXT($dir)  //メソッドを書き出すディレクトリ
 ARRAY TEXT($aryFileName;0)  //の配列
 ARRAY TEXT($aryFileContents;0)  //の配列
 C_TEXT($buf)
@@ -23,7 +22,6 @@ $tableCount:=0
   //定義ファイル「fields」を選択
   //ファイルオープンダイアログ
 $dlg_ok:=JCL_file_SelectFileDlg (->$fileBlob)
-
 If ($dlg_ok=1)
 	
 	  //読み込んだファイルの内容を4Dの文字セットにエンコード
@@ -46,26 +44,28 @@ If ($dlg_ok=1)
 		
 	End for 
 	
-	  //テーブル名の配列を得る
-	$numOfTables:=JCL_tbl_Names_fromFile ($fileText;->$aryTableName;->$aryStartLineNr;->$aryPrefix;->$aryFormsFlag)
-	
-	For ($i;1;$numOfTables)
-		If ($aryFormsFlag{$i}#"NoForm")  // フォーム作らない, NoForm 
-			  //If ($aryFormsFlag{$i}="フォーム作る")
-			  //メソッドを作成
-			JCL_method_GenerateOne ($fileText;$aryTableName{$i};$aryStartLineNr{$i};$aryPrefix{$i};->$aryFileName;->$aryFileContents)
-		End if 
-	End for 
-	
-	  //２回メソッドを作成することで、4Dの自動認識機能をオンにする。
-	For ($i;1;$numOfTables)
-		If ($aryFormsFlag{$i}#"NoForm")
-			  //If ($aryFormsFlag{$i}="フォーム作る")
-			$tableCount:=$tableCount+1
-			  //メソッドを作成
-			JCL_method_GenerateOne ($fileText;$aryTableName{$i};$aryStartLineNr{$i};$aryPrefix{$i};->$aryFileName;->$aryFileContents)
-		End if 
-	End for 
+	  //出力先のフォルダー
+	$dir:=Select folder("")
+	If (OK=1)
+		  //テーブル名の配列を得る
+		$numOfTables:=JCL_tbl_Names_fromFile ($fileText;->$aryTableName;->$aryStartLineNr;->$aryPrefix;->$aryFormsFlag)
+		For ($i;1;$numOfTables)
+			If ($aryFormsFlag{$i}#"NoForm")  // フォーム作らない, NoForm 
+				  //If ($aryFormsFlag{$i}="フォーム作る")
+				  //メソッドを作成
+				$method:=JCL_php_GenerateOne ($fileText;$aryTableName{$i};$aryStartLineNr{$i};$aryPrefix{$i};->$aryFileName;->$aryFileContents)
+				
+				  //php  //メソッドを保存するファイルパス作成
+				  //C_TEXT($methodName)
+				$methodFilePath:=$dir+$aryTableName{$i}+".php"
+				
+				SET BLOB SIZE($blob;0)
+				TEXT TO BLOB($method;$blob;UTF8 text without length)
+				BLOB TO DOCUMENT($methodFilePath;$blob)
+				
+			End if 
+		End for 
+	End if 
 	
 	C_TEXT($msg)
 	$msg:="完了"+Char(Carriage return)

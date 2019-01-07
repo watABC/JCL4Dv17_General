@@ -8,7 +8,7 @@ C_TEXT($structure_file_path)
 $structure_file_path:=Structure file
 
 C_TEXT($separator)
-$separator:=JCL_file_GetDirSeparator 
+$separator:=JCL_file_DirSeparator 
 
 ARRAY TEXT($ary_dirs;0)
 C_LONGINT($dir_count)

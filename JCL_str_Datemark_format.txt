@@ -1,38 +1,35 @@
-﻿  //JCL_str_FormatDatemark
+﻿  //JCL_str_Datemark_format
   //20101215 wat new
   //デイトマークストリングをフォーマットする
+  //20190104 wat プラットフォームはIs macOS、Is Windowsで取得
 
 C_TEXT($1;$inStr;$0;$outStr)
 $inStr:=$1
-C_LONGINT($2)
+C_LONGINT($withoutTime;$2)
+$withoutTime:=$2  //このパラメータがなければ時間表示あり、与えると日付だけ
+
 C_LONGINT($numOfParams)
 $numOfParams:=Count parameters
-C_TEXT($platformStr)
-C_TEXT($delimiter;$dot;$slash;$space;$colon)
-$dot:="."  //mac
-$slash:="/"  //win
-$space:=" "
-$colon:=":"
+C_TEXT($delimiter)
 
-$platformStr:=JCL_str_Platform 
-If ($platformStr="Mac")
-	$delimiter:=$dot
+If (Is macOS)
+	$delimiter:="."  //mac
 Else 
-	$delimiter:=$slash
+	$delimiter:="/"  //win
 End if 
 
   //空白文字なら何もしない
 If ($inStr#"")
-	
-	  //YYYY/MM/DD HH:MMにする
+	  //YYYY.MM.DDか、YYYY/MM/DDか
 	$outStr:=Substring($inStr;1;4)  //YYYY
 	$outStr:=$outStr+$delimiter+Substring($inStr;5;2)  //MM
 	$outStr:=$outStr+$delimiter+Substring($inStr;7;2)  //DD
 	
 	If ($numOfParams=1)
-		$outStr:=$outStr+$space+Substring($inStr;9;2)  //HH
-		$outStr:=$outStr+$colon+Substring($inStr;11;2)  //MM
-		$outStr:=$outStr+$colon+Substring($inStr;13;2)  //SS
+		  //うしろに HH:MM:SS　を付ける
+		$outStr:=$outStr+" "+Substring($inStr;9;2)  //HH
+		$outStr:=$outStr+":"+Substring($inStr;11;2)  //MM
+		$outStr:=$outStr+":"+Substring($inStr;13;2)  //SS
 	End if 
 	
 End if 

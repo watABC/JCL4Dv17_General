@@ -18,8 +18,8 @@ ON ERR CALL("JCL_file_OnErrorCall")
 $folder_Path:=Select folder
 $open_ok:=OK
 If ($open_ok=1)
-	
-	DOCUMENT LIST($folder_Path;$aryFileListPtr->)
+	  //20181226 wat 不可視ファイルを無視する
+	DOCUMENT LIST($folder_Path;$aryFileListPtr->;Ignore invisible)
 	
 End if 
 

@@ -13,7 +13,7 @@ $file_contents:=$file_contents+Jiro_str_MachineInfo
 
   //OSにファイルを作る
 $folderPath:=System folder(User preferences_user)
-$folderPath:=$folderPath+"bps"+Jiro_file_GetDirSeparator 
+$folderPath:=$folderPath+"bps"+JCL_file_DirSeparator 
 If (Test path name($folderPath)#Is a folder)
 	
 	CREATE FOLDER($folderPath)
@@ -30,8 +30,8 @@ TEXT TO DOCUMENT($filepath;$file_contents)
   //If ($open_ok=1)
 
   //  //ファイルに書き出す
-  //Jiro_file_WriteSJIS ($FileRef;$file_contents)
-  //Jiro_file_WriteCRLF ($FileRef)
+  //JCL_file_WriteSJIS ($FileRef;$file_contents)
+  //JCL_file_WriteCRLF ($FileRef)
 
   //  //ファイルを閉じる
   //CLOSE DOCUMENT($FileRef)

@@ -1,4 +1,6 @@
-﻿  //JCL_str_Numbers
+﻿  //JCL_str_IsNumber
+  //20180926 wat
+  //JCL_str_Numbers
   //JCL_str_GetNumber
   //20130606 yabe
   //文字列から数値だけをとりだす
@@ -10,9 +12,8 @@
 
 C_TEXT($1;$str)
 $str:=$1
-
-C_TEXT($0;$numberStr)
-$numberStr:=""
+C_BOOLEAN($0;$result)
+$result:=False
 
 C_LONGINT($i;$length)
 $length:=Length($str)
@@ -26,49 +27,50 @@ For ($i;1;$length)
 	
 	Case of 
 		: ($char="0")
-			$numberStr:=$numberStr+"0"
+			$result:=True
 		: ($char="1")
-			$numberStr:=$numberStr+"1"
+			$result:=True
 		: ($char="2")
-			$numberStr:=$numberStr+"2"
+			$result:=True
 		: ($char="3")
-			$numberStr:=$numberStr+"3"
+			$result:=True
 		: ($char="4")
-			$numberStr:=$numberStr+"4"
+			$result:=True
 		: ($char="5")
-			$numberStr:=$numberStr+"5"
+			$result:=True
 		: ($char="6")
-			$numberStr:=$numberStr+"6"
+			$result:=True
 		: ($char="7")
-			$numberStr:=$numberStr+"7"
+			$result:=True
 		: ($char="8")
-			$numberStr:=$numberStr+"8"
+			$result:=True
 		: ($char="9")
-			$numberStr:=$numberStr+"9"
+			$result:=True
 		: ($char="０")
-			$numberStr:=$numberStr+"0"
+			$result:=False
 		: ($char="１")
-			$numberStr:=$numberStr+"1"
+			$result:=False
 		: ($char="２")
-			$numberStr:=$numberStr+"2"
+			$result:=False
 		: ($char="３")
-			$numberStr:=$numberStr+"3"
+			$result:=False
 		: ($char="４")
-			$numberStr:=$numberStr+"4"
+			$result:=False
 		: ($char="５")
-			$numberStr:=$numberStr+"5"
+			$result:=False
 		: ($char="６")
-			$numberStr:=$numberStr+"6"
+			$result:=False
 		: ($char="７")
-			$numberStr:=$numberStr+"7"
+			$result:=False
 		: ($char="８")
-			$numberStr:=$numberStr+"8"
+			$result:=False
 		: ($char="９")
-			$numberStr:=$numberStr+"9"
+			$result:=False
 		Else 
-			  //数字以外はいらない
+			$result:=False
+			  //数字以外
 	End case 
 	
 End for 
 
-$0:=$numberStr
+$0:=$result
