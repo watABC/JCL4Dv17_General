@@ -1,8 +1,10 @@
-﻿  //JCL_method_JCLimport
+﻿  //JCL_A_method_import
   // フォルダ選択ダイアログを表示して、JCLメソッドを取り込む。
   //拡張子があれば除く
   //20170627 yabe wat
-  //20181226 wat 不可視ファイルを無視する
+  //20180917 wat なぜかmacOSのフォルダーに見えないファイル名が空白文字のファイルがあるようだ。
+  //20180917 wat rename 名前にAを付けて、メソッドリストで上に来るようにした
+  //20190107 ike wat　リストで上に来るようにしたければ_A_を付ける
 
 C_TEXT($dir)  //メソッドを読み込むディレクトリ
 C_LONGINT($i;$numOfFile)
@@ -27,8 +29,8 @@ $retText:="end"
 
 $dir:=Select folder("")
 If (OK=1)
-	  //20181226 wat 不可視ファイルを無視する
-	DOCUMENT LIST($dir;$aryFileList;Ignore invisible)
+	
+	DOCUMENT LIST($dir;$aryFileList)
 	
 	$numOfFile:=Size of array($aryFileList)
 	ARRAY TEXT($aryMethodNames;$numOfFile)
@@ -39,6 +41,10 @@ If (OK=1)
 		$pos:=Position(".";$aryFileList{$i})
 		If ($pos>0)
 			$aryMethodNames{$i}:=Substring($aryFileList{$i};1;$pos-1)
+			
+		Else 
+			$aryMethodNames{$i}:=$aryFileList{$i}  //20180917 wat
+			
 		End if 
 		
 	End for 
@@ -47,13 +53,16 @@ If (OK=1)
 	For ($i;1;$numOfFile)
 		
 		$methodName:=$aryMethodNames{$i}
-		$pos:=Position("JCL_method_JCLimport";$methodName)  //20170808 yabe wat
-		If ($pos=0)
+		If ($methodName#"")  //20180917 ファイル名に空白があった、そこでエラーになった。
+			$pos:=Position("JCL_method_JCLimport";$methodName)  //20170808 yabe wat
 			
-			$method:=""
-			METHOD SET CODE($methodName;$method)
-			
-		End if 
+			If ($pos=0)
+				
+				$method:=""
+				METHOD SET CODE($methodName;$method)
+				
+			End if 
+		End if   //20180917
 		
 	End for 
 	
@@ -61,21 +70,23 @@ If (OK=1)
 		
 		$filePath:=$dir+$aryFileList{$i}
 		$methodName:=$aryMethodNames{$i}
-		$pos:=Position("JCL_method_JCLimport";$methodName)  //20170808 yabe wat
-		If ($pos=0)
-			
-			  //v14
-			DOCUMENT TO BLOB($filePath;$blob)
-			$method:=BLOB to text($blob;UTF8 text without length)
-			
-			METHOD SET CODE($methodName;$method)
-			
-			METHOD SET ATTRIBUTE($methodName;Attribute shared;True)  // 20150911 wat
-			
-		End if 
-		
+		If ($methodName#"")  //20180917 ファイル名に空白があった、そこでエラーになった。
+			$pos:=Position("JCL_method_JCLimport";$methodName)  //20170808 yabe wat
+			If ($pos=0)
+				
+				  //v14
+				DOCUMENT TO BLOB($filePath;$blob)
+				$method:=BLOB to text($blob;UTF8 text without length)
+				
+				METHOD SET CODE($methodName;$method)
+				
+				METHOD SET ATTRIBUTE($methodName;Attribute shared;True)  // 20150911 wat
+				
+			End if 
+		End if   //20180917
 	End for 
 	
+	$retText:=String($numOfFile)+"個のメソッドを作成しました。"
 	ALERT($retText)
 	
 End if 

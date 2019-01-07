@@ -1,0 +1,19 @@
+﻿  //JCL_btnSetEnable_byNSelect
+  //20181114 wat
+  //リストボックスで1行以上選択されていればボタンはイネイブル
+
+C_TEXT($1;$inListBox)
+$inListBox:=$1  //対象となるリストボックス名
+C_TEXT($2;$inButton)
+$inButton:=$2  //イネイブル対象となるボタン名
+
+  //リストで選択されている行が一つ以上の場合にイネイブル、
+  //そうでなければボタンはグレイ
+$selCnt:=JCL_lstSelectedCount ($inListBox)
+If ($selCnt>=1)
+	OBJECT SET ENABLED(*;$inButton;True)
+	
+Else 
+	OBJECT SET ENABLED(*;$inButton;False)
+	
+End if 
