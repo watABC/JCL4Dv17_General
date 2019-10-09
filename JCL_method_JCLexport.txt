@@ -1,10 +1,12 @@
 ﻿  //JCL_method_JCLexport
   // フォルダ選択ダイアログを表示して、JCLメソッドだけを書き出す。
   //20170627 yabe wat
-  //20180521 wat JCLvXX_Generalフォルダに出力する
-  //20190107 wat ike 改行はＬＦ、BLOB経由しない
+  //20180521 wat JCLv16_Generalフォルダに出力する
+  //20190129 wat gitに出力するのはＬＦが適当
 
 C_TEXT($dir)  //メソッドを書き出すディレクトリ
+
+  //C_TIME($doc)
 C_LONGINT($i;$numOfMethod)
 C_TEXT($method)
 C_TEXT($methodFilePath)
@@ -19,6 +21,7 @@ If (OK=1)
 	
 	$numOfMethod:=Size of array($aryMethodName)
 	For ($i;1;$numOfMethod)
+		
 		  //メソッドコードを取得
 		METHOD GET CODE($aryMethodName{$i};$method)
 		
@@ -32,11 +35,11 @@ If (OK=1)
 		  //SET BLOB SIZE($blob;0)
 		  //TEXT TO BLOB($method;$blob;UTF8 text without length)
 		  //BLOB TO DOCUMENT($methodFilePath;$blob)
-		
-		  //20190107 wat ike 改行はＬＦ、BLOB経由しない
+		  //20190129 wat gitに出力するのはＬＦが適当
 		TEXT TO DOCUMENT($methodFilePath;$method;"UTF-8";Document with LF)
 		
 	End for 
+	
 	ALERT("完了")
 	
 End if 
