@@ -2,6 +2,7 @@
   //20181228 wat hisa
   //ｐｈｐ用メソッドジェネレータ
   //外部テキストファイルのフィールド定義を読み込んでメソッド作成
+  //テンプレートファイルフォルダを選択 20181226 不可視ファイルを除く
 
 C_LONGINT($dlg_ok)
 C_BLOB($fileBlob)  //読み込んだファイルの内容
@@ -27,9 +28,8 @@ If ($dlg_ok=1)
 	  //読み込んだファイルの内容を4Dの文字セットにエンコード
 	$fileText:=Convert to text($fileBlob;"UTF-8")
 	
-	  //改行コードをCRに統一する 20130318 add yabe
-	$fileText:=Replace string($fileText;Char(Line feed);Char(Carriage return))  //ラインフィードをキャリッジリターンに置き換える
-	$fileText:=Replace string($fileText;Char(Carriage return)+Char(Carriage return);Char(Carriage return))  //２つのキャリッジリターンを１つのキャリッジリターンに置き換える
+	  //改行コードをCRに統一する
+	$fileText:=JCL_str_unifyCR ($fileText)
 	
 	  //テンプレートファイルフォルダを選択 20181226 不可視ファイルを除く
 	$dir:=Select folder("")

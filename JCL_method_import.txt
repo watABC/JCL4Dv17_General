@@ -1,6 +1,7 @@
 ﻿  //JCL_method_import
   //20150524 yabe wat v14対応
   //20150911 wat コンポーネントで共有
+  //20181226 wat 不可視ファイルを無視する
 
 C_TEXT($dir)  //メソッドを読み込むディレクトリ
 C_LONGINT($i;$numOfFile)

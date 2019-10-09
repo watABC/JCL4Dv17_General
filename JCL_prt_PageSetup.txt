@@ -1,6 +1,5 @@
 ﻿  //JCL_prt_PageSetup
   //20160311 wat 
-  //Jiro_prt_PageSetup
   //20101212 wat new
   //ページセットアップをラップ
 

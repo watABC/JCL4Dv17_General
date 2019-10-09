@@ -27,7 +27,6 @@ For ($i;1;$numOfFields)
 		
 		$field_name:=Field name($table_num;$i)
 		If ($search_str=$field_name)
-			
 			  //見つかった
 			$outFieldPtrPtr->:=Field($table_num;$i)
 			$outFieldStr:=$field_name

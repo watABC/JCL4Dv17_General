@@ -6,6 +6,7 @@ C_TEXT($1;$inListBox)
 $inListBox:=$1  //対象となるリストボックス名
 C_TEXT($2;$inButton)
 $inButton:=$2  //イネイブル対象となるボタン名
+C_LONGINT($selCnt)
 
   //リストで選択されている行が一つ以上の場合にイネイブル、
   //そうでなければボタンはグレイ

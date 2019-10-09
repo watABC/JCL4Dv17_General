@@ -1,9 +1,10 @@
-﻿  //zz_obj_LeftTop
+﻿  //JCL_obj_LeftTop
   //20160307 wat
   //オブジェクトの左と上を取得、スクリーン絶対座標
+  //20190617 wat オブジェクト名
 
-C_POINTER($1;$inObjPtr)
-$inObjPtr:=$1  //対象となるボタンのポインタ
+C_TEXT($1;$inObjName)
+$inObjName:=$1  //対象となるオブジェクト名
 C_POINTER($2;$3)
 C_LONGINT($top;$left)
 
@@ -23,7 +24,7 @@ C_LONGINT($over_x;$over_y)
 GET WINDOW RECT($fw_left;$fw_top;$fw_right;$fw_bottom)
 
   //クリックされたボタンの座標
-OBJECT GET COORDINATES($inObjPtr->;$objLeft;$objTop;$objRight;$objBottom)
+OBJECT GET COORDINATES(*;$inObjName;$objLeft;$objTop;$objRight;$objBottom)
 
   //スクリーンないに表示されているか、計算して、調整 20160313
 $scr_height:=Screen height

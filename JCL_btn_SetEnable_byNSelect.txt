@@ -8,7 +8,7 @@ C_POINTER($2;$inButtonPtr)
 $inButtonPtr:=$2  //イネイブル対象となるボタンのポインタ
 C_LONGINT($selCnt)
 
-  //リストで選択されている行が一つだけの場合にイネイブル、
+  //リストで選択されている行が一つ以上の場合にイネイブル、
   //そうでなければボタンはグレイ
 $selCnt:=JCL_lst_SelectedCount ($inListBoxPtr)
 If ($selCnt>=1)
