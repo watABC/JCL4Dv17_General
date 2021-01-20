@@ -25,7 +25,7 @@ C_TEXT($sql)
   //改行で切り分ける
 $numOfLines:=JCL_str_Extract ($inFileText;Char(Carriage return);->$lineAry)
 For ($i;$inStartLineNr+1;$numOfLines)
-  //スタート行番号の次の行からフィールド定義を得る
+	  //スタート行番号の次の行からフィールド定義を得る
 	
 	DELETE FROM ARRAY($itemAry;1;Size of array($itemAry))
 	$numOfItems:=JCL_str_Extract ($lineAry{$i};Char(Tab);->$itemAry)
