@@ -1,17 +1,18 @@
 ﻿  //JCL_str_Datemark_format
   //20101215 wat new
-  //デイトマークストリングをフォーマットする
-  //20190104 wat プラットフォームはIs macOS、Is Windowsで取得
-  //20190124 wat JCL_str_Datemark_format($datemark)　→YYYY/MM/DD HH:MM:SS
-  //20190124 wat JCL_str_Datemark_format($datemark;0) →YYYY/MM/DD
+  //デイトマークストリングをフォーマットする、第二引数を与えると日付だけを返す
+  //20190113 wat OSを取得する方法を変更
+  // JCL_str_Datemark_format($datemark)　→YYYY/MM/DD HH:MM:SS
+  // JCL_str_Datemark_format($datemark;0) →YYYY/MM/DD
 
 C_TEXT($1;$inStr;$0;$outStr)
 $inStr:=$1
-C_LONGINT($withoutTime;$2)
-
+C_LONGINT($2)
 C_LONGINT($numOfParams)
 $numOfParams:=Count parameters
-C_TEXT($delimiter)
+C_TEXT($delimiter;$space;$colon)
+$space:=" "
+$colon:=":"
 
 If (Is macOS)
 	$delimiter:="."  //mac
@@ -21,18 +22,18 @@ End if
 
   //空白文字なら何もしない
 If ($inStr#"")
-	  //YYYY.MM.DDか、YYYY/MM/DDか
+	  //第二引数があったら、YYYY/MM/DDだけ
 	$outStr:=Substring($inStr;1;4)  //YYYY
 	$outStr:=$outStr+$delimiter+Substring($inStr;5;2)  //MM
 	$outStr:=$outStr+$delimiter+Substring($inStr;7;2)  //DD
 	
 	If ($numOfParams=1)
-		  //うしろに HH:MM:SS　を付ける
-		$outStr:=$outStr+" "+Substring($inStr;9;2)  //HH
-		$outStr:=$outStr+":"+Substring($inStr;11;2)  //MM
-		$outStr:=$outStr+":"+Substring($inStr;13;2)  //SS
+		  //引数が1コだけなら、YYYY/MM/DD HH:MMにする
+		$outStr:=$outStr+$space+Substring($inStr;9;2)  //HH
+		$outStr:=$outStr+$colon+Substring($inStr;11;2)  //MM
+		$outStr:=$outStr+$colon+Substring($inStr;13;2)  //SS
+		
 	End if 
-	
 End if 
 
 $0:=$outStr

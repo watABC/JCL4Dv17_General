@@ -1,5 +1,4 @@
-﻿  //JCL_btnSetEnable
-  //JCL_btn_SetEnable
+﻿  //JCL_btn_SetEnable
   //20100708 wat
   //ボタンをイネイブルにする、ラッパ
   //引数のブール値が、真だったらイネイブル

@@ -1,6 +1,7 @@
 ﻿  //JCL_file_WriteSJIS
   //20100721 wat new
   //テキストファイルに書き出す
+  //20190520 hisa wat DCCで統一したくなったので元のShift-JISに戻す
 
 C_TIME($1;$doc)
 $doc:=$1  //ファイル参照
@@ -9,9 +10,12 @@ $inText:=$2  //出力対象の文字列
 C_BLOB($convertedBLOB)
 
   //文字セットを指定して、ＢＬＯＢに変換
-CONVERT FROM TEXT($inText;"Shift_JIS";$convertedBLOB)
+  //CONVERT FROM TEXT($inText;"UTF-8";$convertedBLOB)
   //CONVERT FROM TEXT($inText;kTextEncodingMacJapanese;$convertedBLOB)
   //CONVERT FROM TEXT($inText;"x-mac-japanese";$convertedBLOB)
+
+  //20190520
+CONVERT FROM TEXT($inText;"Shift-JIS";$convertedBLOB)
 
   //CONVERT FROM TEXT($inText;1258;$convertedBLOB)
   //注: IANAに定義されていない特別な文字セット (1258=x-mac-japanese) を使用することができます。

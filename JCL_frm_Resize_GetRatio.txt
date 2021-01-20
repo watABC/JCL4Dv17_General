@@ -29,6 +29,6 @@ $m:=$m+": $w1="+String($w1)+","
 $m:=$m+": $h1="+String($h1)+","
 $m:=$m+": $ratio="+String($ratio)
 
-SET TEXT TO PASTEBOARD($m)
+  //SET TEXT TO PASTEBOARD($m) //20200418 wat
 
 $0:=$ratio
