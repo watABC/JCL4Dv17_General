@@ -1,0 +1,1 @@
+  //JCL_popCompare_make_num  //20200226 wat  //比較演算子ポップアップ、数値型C_POINTER($1;$objPtr)$objPtr:=$1APPEND TO ARRAY($objPtr->;"=")APPEND TO ARRAY($objPtr->;"#")APPEND TO ARRAY($objPtr->;">=")APPEND TO ARRAY($objPtr->;">")APPEND TO ARRAY($objPtr->;"<=")APPEND TO ARRAY($objPtr->;"<")

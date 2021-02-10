@@ -1,0 +1,1 @@
+  //JCL_4D_Show4DFolder  //20200324 wat  //4djapanから教わった、ユーザの4Dフォルダを開くC_TEXT($rootPath)If ((Application type=4D Volume desktop))	$rootPath:=Get 4D folder(Active 4D Folder)Else 	$rootPath:=Get 4D folder(Active 4D Folder)+Path to object(Structure file).name+Folder separatorEnd if SHOW ON DISK($rootPath)
